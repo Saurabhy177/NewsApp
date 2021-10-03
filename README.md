@@ -30,6 +30,5 @@ You need to know:
   using an activity, fragments, and views.
 * Navigating between fragments and using Safe Args (a Gradle plugin) 
   to pass data between fragments.
-* View models, view-model factories, and LiveData and its observers. 
-  These Architecture Components topics are covered in an earlier codelab in this course.
+* View models, view-model factories, and LiveData and its observers.
 * A basic understanding of SQL databases and the SQLite language.
