@@ -1,4 +1,4 @@
-package com.example.newsapp.ui.fragments
+package com.example.newsapp.presentation.fragments
 
 import android.os.Bundle
 import android.view.View
@@ -6,8 +6,8 @@ import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.example.newsapp.R
-import com.example.newsapp.ui.NewsActivity
-import com.example.newsapp.ui.viewmodels.NewsViewModel
+import com.example.newsapp.presentation.NewsActivity
+import com.example.newsapp.presentation.viewmodels.NewsViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_article.*
 

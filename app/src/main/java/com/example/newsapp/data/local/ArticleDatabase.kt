@@ -1,11 +1,11 @@
-package com.example.newsapp.db
+package com.example.newsapp.data.local
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.example.newsapp.models.Article
+import com.example.newsapp.domain.models.Article
 
 /**
  * Since, the tables in room database can have only primitive datatype and

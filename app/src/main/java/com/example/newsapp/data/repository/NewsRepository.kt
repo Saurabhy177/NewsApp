@@ -1,8 +1,8 @@
-package com.example.newsapp.repository
+package com.example.newsapp.data.repository
 
-import com.example.newsapp.api.RetrofitInstance
-import com.example.newsapp.db.ArticleDatabase
-import com.example.newsapp.models.Article
+import com.example.newsapp.data.remote.RetrofitInstance
+import com.example.newsapp.data.local.ArticleDatabase
+import com.example.newsapp.domain.models.Article
 
 class NewsRepository(
     private val db: ArticleDatabase

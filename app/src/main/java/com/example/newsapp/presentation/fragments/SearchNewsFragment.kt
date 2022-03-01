@@ -1,30 +1,36 @@
-package com.example.newsapp.ui.fragments
+package com.example.newsapp.presentation.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.AbsListView
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.R
-import com.example.newsapp.adapters.NewsAdapter
-import com.example.newsapp.ui.NewsActivity
-import com.example.newsapp.ui.viewmodels.NewsViewModel
-import com.example.newsapp.util.Constants
-import com.example.newsapp.util.Resource
+import com.example.newsapp.presentation.adapters.NewsAdapter
+import com.example.newsapp.presentation.NewsActivity
+import com.example.newsapp.presentation.viewmodels.NewsViewModel
+import com.example.newsapp.core.util.Constants
+import com.example.newsapp.core.util.Resource
 import kotlinx.android.synthetic.main.error_layout.*
-import kotlinx.android.synthetic.main.fragment_breaking_news.*
+import kotlinx.android.synthetic.main.fragment_search_news.*
+import kotlinx.android.synthetic.main.fragment_search_news.errorLayout
+import kotlinx.android.synthetic.main.fragment_search_news.paginationProgressBar
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
-class BreakingNewsFragment: Fragment(R.layout.fragment_breaking_news) {
+class SearchNewsFragment: Fragment(R.layout.fragment_search_news) {
 
     lateinit var viewModel: NewsViewModel
     lateinit var newsAdapter: NewsAdapter
 
-    private val TAG = "BreakingNewsFragment"
+    private val TAG = "SearchNewsFragment"
     private var isLoading: Boolean = false
     private var isLastPage: Boolean = false
     private var isScrolling: Boolean = false
@@ -35,22 +41,25 @@ class BreakingNewsFragment: Fragment(R.layout.fragment_breaking_news) {
         viewModel = (activity as NewsActivity).newsViewModel
 
         setupRecyclerView()
-
         newsAdapter.setOnItemClickListener {
             val bundle = Bundle().apply {
                 putSerializable("article", it)
             }
             findNavController().navigate(
-                R.id.action_breakingNewsFragment_to_articleFragment,
+                R.id.action_searchNewsFragment_to_articleFragment,
                 bundle
             )
         }
 
         btnRefresh.setOnClickListener {
             errorLayout.visibility = View.GONE
-            viewModel.getBreakingNews("us")
+            val inputString = etSearch.text.toString()
+            if (inputString.isNotEmpty()) {
+                viewModel.searchNews(inputString)
+            }
         }
 
+        searchNews()
         observeData()
     }
 
@@ -79,7 +88,7 @@ class BreakingNewsFragment: Fragment(R.layout.fragment_breaking_news) {
                     isTotalMoreThanVisible && isScrolling
 
             if (shouldPaginate) {
-                viewModel.getBreakingNews("us")
+                viewModel.searchNews(etSearch.text.toString())
                 isScrolling = false
             }
         }
@@ -87,15 +96,36 @@ class BreakingNewsFragment: Fragment(R.layout.fragment_breaking_news) {
 
     private fun setupRecyclerView() {
         newsAdapter = NewsAdapter()
-        rvBreakingNews.apply {
+        rvSearchNews.apply {
             adapter = newsAdapter
             layoutManager = LinearLayoutManager(activity)
-            addOnScrollListener(this@BreakingNewsFragment.scrollListener)
+            addOnScrollListener(this@SearchNewsFragment.scrollListener)
+        }
+    }
+
+    private fun searchNews() {
+        var job: Job? = null
+
+        /**
+         * Adding a time delay before calling the search api so as to avoid unnecessary
+         * api calls.
+         * */
+        etSearch.addTextChangedListener { editable ->
+            job?.cancel()
+            job = MainScope().launch {
+                delay(Constants.SEARCH_NEWS_TIME_DELAY)
+
+                editable?.let {
+                    if (it.toString().isNotEmpty()) {
+                        viewModel.searchNews(it.toString())
+                    }
+                }
+            }
         }
     }
 
     private fun observeData() {
-        viewModel.breakingNews.observe(viewLifecycleOwner, Observer {
+        viewModel.searchNews.observe(viewLifecycleOwner, Observer {
 
             when (it) {
                 is Resource.Success -> {
@@ -115,10 +145,10 @@ class BreakingNewsFragment: Fragment(R.layout.fragment_breaking_news) {
                          * 2) one for the last blank page denoting data list end
                          * */
                         val totalPageCount = newsResponse.totalResults / Constants.QUERY_PAGE_SIZE + 2
-                        isLastPage = viewModel.breakingNewsPage == totalPageCount
+                        isLastPage = viewModel.searchNewsPage == totalPageCount
 
                         if (isLastPage) {
-                            rvBreakingNews.setPadding(0,0,0,0)
+                            rvSearchNews.setPadding(0,0,0,0)
                         }
                     }
                 }

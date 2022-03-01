@@ -1,4 +1,4 @@
-package com.example.newsapp.ui.viewmodels
+package com.example.newsapp.presentation.viewmodels
 
 import android.app.Application
 import android.content.Context
@@ -10,10 +10,10 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.newsapp.NewsApplication
-import com.example.newsapp.models.Article
-import com.example.newsapp.models.NewsResponse
-import com.example.newsapp.repository.NewsRepository
-import com.example.newsapp.util.Resource
+import com.example.newsapp.domain.models.Article
+import com.example.newsapp.domain.models.NewsResponse
+import com.example.newsapp.data.repository.NewsRepository
+import com.example.newsapp.core.util.Resource
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import java.io.IOException

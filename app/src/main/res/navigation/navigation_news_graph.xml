@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/breakingNewsFragment"
-        android:name="com.example.newsapp.ui.fragments.BreakingNewsFragment"
+        android:name="com.example.newsapp.presentation.fragments.BreakingNewsFragment"
         android:label="BreakingNewsFragment" >
         <action
             android:id="@+id/action_breakingNewsFragment_to_articleFragment"
@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/searchNewsFragment"
-        android:name="com.example.newsapp.ui.fragments.SearchNewsFragment"
+        android:name="com.example.newsapp.presentation.fragments.SearchNewsFragment"
         android:label="SearchNewsFragment" >
         <action
             android:id="@+id/action_searchNewsFragment_to_articleFragment"
@@ -32,7 +32,7 @@
 
     <fragment
         android:id="@+id/savedNewsFragment"
-        android:name="com.example.newsapp.ui.fragments.SavedNewsFragment"
+        android:name="com.example.newsapp.presentation.fragments.SavedNewsFragment"
         android:label="SavedNewsFragment" >
         <action
             android:id="@+id/action_savedNewsFragment_to_articleFragment"
@@ -45,7 +45,7 @@
 
     <fragment
         android:id="@+id/articleFragment"
-        android:name="com.example.newsapp.ui.fragments.ArticleFragment"
+        android:name="com.example.newsapp.presentation.fragments.ArticleFragment"
         android:label="ArticleFragment" >
         <argument
             android:name="article"

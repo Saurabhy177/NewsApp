@@ -1,4 +1,4 @@
-package com.example.newsapp.ui
+package com.example.newsapp.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -6,10 +6,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.newsapp.R
-import com.example.newsapp.db.ArticleDatabase
-import com.example.newsapp.repository.NewsRepository
-import com.example.newsapp.ui.viewmodels.NewsViewModel
-import com.example.newsapp.ui.viewmodels.NewsViewModelProviderFactory
+import com.example.newsapp.data.local.ArticleDatabase
+import com.example.newsapp.data.repository.NewsRepository
+import com.example.newsapp.presentation.viewmodels.NewsViewModel
+import com.example.newsapp.presentation.viewmodels.NewsViewModelProviderFactory
 import kotlinx.android.synthetic.main.activity_news.*
 
 class NewsActivity : AppCompatActivity() {

@@ -1,4 +1,4 @@
-package com.example.newsapp.adapters
+package com.example.newsapp.presentation.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.newsapp.R
-import com.example.newsapp.models.Article
+import com.example.newsapp.domain.models.Article
 import kotlinx.android.synthetic.main.item_article_preview.view.*
 
 class NewsAdapter: RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {

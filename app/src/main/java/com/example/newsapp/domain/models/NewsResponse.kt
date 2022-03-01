@@ -1,4 +1,4 @@
-package com.example.newsapp.models
+package com.example.newsapp.domain.models
 
 data class NewsResponse(
     val articles: MutableList<Article>,
