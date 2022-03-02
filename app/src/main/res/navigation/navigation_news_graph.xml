@@ -49,7 +49,7 @@
         android:label="ArticleFragment" >
         <argument
             android:name="article"
-            app:argType="com.example.newsapp.models.Article" />
+            app:argType="com.example.newsapp.domain.models.Article" />
     </fragment>
 
 </navigation>
